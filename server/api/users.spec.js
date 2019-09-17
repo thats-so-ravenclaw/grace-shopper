@@ -7,7 +7,7 @@ const app = require('../index');
 const User = db.model('user');
 const agent = request.agent(app);
 
-describe('User routes', () => {
+describe('User Routes', () => {
   beforeEach(() => {
     return db.sync({ force: true });
   });
