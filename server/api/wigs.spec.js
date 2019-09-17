@@ -12,12 +12,16 @@ describe('Wig Routes', () => {
     return db.sync({ force: true });
   });
 
-  const wigName = 'Blonde Wig';
   let blondeWig;
 
   beforeEach(async () => {
     blondeWig = await Wig.create({
-      name: wigName
+      name: 'Marilyn Monroe',
+      price: 25.0,
+      quantity: 2,
+      length: 'short',
+      material: 'human',
+      color: 'blonde'
     });
     return blondeWig;
   });
@@ -29,7 +33,7 @@ describe('Wig Routes', () => {
         .expect(200);
 
       expect(res.body).to.be.an('array');
-      expect(res.body[0].name).to.be.equal(wigName);
+      expect(res.body[0].name).to.be.equal('Marilyn Monroe');
     });
   }); // end describe('/api/users')
 });
