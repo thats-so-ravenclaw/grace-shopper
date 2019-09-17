@@ -1,26 +1,27 @@
-const { db } = require('./server/db');
+const db = require('./server/db');
 const { green, red } = require('chalk');
 const faker = require('faker');
 
-const Users = require('./server/db/models/user');
+const User = require('./server/db/models/user');
 
-const users = [];
+let users = [];
 for (let i = 1; i < 101; i++) {
   let newUser = {
-    email: faker.internet.email()
-    // password:
-    // salt:,
-    // googleId:
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+    salt: faker.lorem.word(),
+    googleId: faker.name.firstName()
   };
+  users.push(newUser);
 }
 
-const seed = async () => {
+async function seed() {
   try {
     await db.sync({ force: true });
 
     await Promise.all(
       users.map(user => {
-        return Users.create(user);
+        return User.create(user);
       })
     );
     console.log(green('Seeding success!'));
@@ -30,6 +31,6 @@ const seed = async () => {
     console.error(error);
     db.close();
   }
-};
+}
 
 seed();
