@@ -1,11 +1,11 @@
 'use strict';
 
 const db = require('../server/db');
-const { User } = require('../server/db/models');
+const { User, Wig } = require('../server/db/models');
 const { green, red } = require('chalk');
 const faker = require('faker');
 
-//creates an array to seed the database with faker data
+//creates an array to seed the database with faker data for users
 let usersArr = [];
 for (let i = 1; i < 101; i++) {
   let newUser = {
@@ -15,6 +15,22 @@ for (let i = 1; i < 101; i++) {
     googleId: faker.name.firstName()
   };
   usersArr.push(newUser);
+}
+
+//creates an array to seed the databse with faker data for wigs
+let wigsArr = [];
+for (let i = 1; i < 51; i++) {
+  let newWig = {
+    name: `The ${faker.address.city()}`,
+    image: faker.image.imageUrl(),
+    price: faker.finance.amount(),
+    quantity: 25,
+    description: faker.name.jobDescriptor(),
+    length: 'medium',
+    material: 'human',
+    color: 'brown'
+  };
+  wigsArr.push(newWig);
 }
 
 async function seed() {
@@ -27,7 +43,14 @@ async function seed() {
     })
   );
 
+  const wigs = await Promise.all(
+    wigsArr.map(wig => {
+      return Wig.create(wig);
+    })
+  );
   console.log(green(`seeded ${users.length} users`));
+  console.log(green(`seeded ${wigs.length} wigs`));
+
   console.log(green(`seeded successfully`));
 }
 
