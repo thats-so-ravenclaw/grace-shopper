@@ -1,22 +1,19 @@
 import Axios from 'axios';
 
 //ACTION TYPES
-const GOT_ALL_WIGS = 'GOT_ALL_WIGS';
-const GOT_SINGLE_WIG = 'GOT_SINGLE_WIG';
+export const GOT_ALL_WIGS = 'GOT_ALL_WIGS';
+export const GOT_SINGLE_WIG = 'GOT_SINGLE_WIG';
 
 //remove wig from cart? placeholder
 // export const REMOVE_WIG
 
-//INITIAL STATE
-const defaultWigs = [];
-
 //ACTION CREATORS
-const gotWigs = wigs => ({
+export const gotWigs = wigs => ({
   type: GOT_ALL_WIGS,
   wigs
 });
 
-const gotSingleWig = () => ({
+export const gotSingleWig = () => ({
   type: GOT_SINGLE_WIG
 });
 
@@ -31,19 +28,14 @@ export const getAllWigs = () => async dispatch => {
 };
 
 //REDUCER
-export default function(state = defaultWigs, action) {
+export default function wigsReducer(wigs = [], action) {
   switch (action.type) {
     case GOT_ALL_WIGS:
-      return {
-        ...state,
-        wigs: action.wigs
-      };
+      return action.wigs;
     case GOT_SINGLE_WIG:
-      return {
-        ...state,
-        wig: action.wig
-      };
+      return action.wig;
+
     default:
-      return state;
+      return wigs;
   }
 }
