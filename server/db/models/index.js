@@ -1,5 +1,5 @@
-const User = require('./user')
-const Wig = require('./Wig')
+const User = require('./user');
+const Wig = require('./wig');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -17,4 +17,4 @@ const Wig = require('./Wig')
 module.exports = {
   User,
   Wig
-}
+};
