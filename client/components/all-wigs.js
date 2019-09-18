@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import getAllWigs from './store/wigs';
+import getAllWigs from '../store';
 
 class AllWigs extends React.Component {
   componentDidMount() {
