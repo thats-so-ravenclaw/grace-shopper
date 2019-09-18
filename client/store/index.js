@@ -5,11 +5,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { userReducer } from './user';
 import { wigsReducer } from './wigs';
 
-const reducer = combineReducers({ users: userReducer, wigs: wigsReducer });
+const reducer = combineReducers({ userReducer, wigsReducer });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
 const store = createStore(reducer, middleware);
 
-export default { store, reducer };
+export default { store };
 export * from './user';
