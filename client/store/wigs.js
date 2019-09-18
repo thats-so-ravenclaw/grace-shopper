@@ -1,11 +1,8 @@
-import Axios from 'axios';
+import axios from 'axios';
 
 //ACTION TYPES
 export const GOT_ALL_WIGS = 'GOT_ALL_WIGS';
 export const GOT_SINGLE_WIG = 'GOT_SINGLE_WIG';
-
-//remove wig from cart? placeholder
-// export const REMOVE_WIG
 
 //ACTION CREATORS
 export const gotWigs = wigs => ({
@@ -20,7 +17,7 @@ export const gotSingleWig = () => ({
 //THUNK CREATOR
 export const getAllWigs = () => async dispatch => {
   try {
-    const { data } = await Axios.get('/api/wigs');
+    const { data } = await axios.get('/api/wigs');
     dispatch(gotWigs(data));
   } catch (error) {
     console.log(error);

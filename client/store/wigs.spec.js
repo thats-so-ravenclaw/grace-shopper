@@ -1,18 +1,17 @@
 /* global describe beforeEach afterEach it */
 
 import MockAxiosAdapter from 'axios-mock-adapter';
-import { createStore, applyMiddleware } from 'redux';
 import axios from 'axios';
 import { expect } from 'chai';
 import { gotWigs, GOT_ALL_WIGS, getAllWigs } from './wigs';
+import configureMockstore from 'redux-mock-store';
 import thunkMiddleware from 'redux-thunk';
-import enforceImmutableState from 'redux-immutable-state-invariant';
-import { reducer } from './index';
 
 let store;
 let mockAxios;
+let mockStore = configureMockstore([thunkMiddleware]);
 
-const wigs = [
+const wig = [
   {
     name: 'Test Wig',
     price: 20.1,
@@ -26,9 +25,9 @@ const wigs = [
 describe('Action creators', () => {
   describe('gotWigs', () => {
     it('returns properly formatted action', () => {
-      expect(gotWigs(wigs)).to.be.deep.equal({
+      expect(gotWigs(wig)).to.be.deep.equal({
         type: GOT_ALL_WIGS,
-        wigs
+        wigs: wig
       });
     });
   });
@@ -37,10 +36,7 @@ describe('Action creators', () => {
 describe('Thunks', () => {
   beforeEach(() => {
     mockAxios = new MockAxiosAdapter(axios);
-    store = createStore(
-      reducer,
-      applyMiddleware(thunkMiddleware, enforceImmutableState())
-    );
+    store = mockStore(wig);
   });
 
   afterEach(() => {
@@ -49,13 +45,13 @@ describe('Thunks', () => {
 
   describe('GET /wigs succeeds', () => {
     beforeEach(() => {
-      mockAxios.onGet('/api/wigs').reply(200, wigs);
+      mockAxios.onGet('/api/wigs').reply(200, wig);
     });
 
     it('sets the received wigs on state', async () => {
       await store.dispatch(getAllWigs());
       const state = store.getState();
-      expect(state.wigs).to.deep.equal(wigs);
+      expect(state).to.deep.equal(wig);
     });
   });
 });
