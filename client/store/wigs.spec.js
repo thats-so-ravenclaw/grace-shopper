@@ -1,9 +1,23 @@
 /* global describe beforeEach afterEach it */
 
 import { expect } from 'chai';
-import { getAllWigs } from './wigs';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import configureMockStore from 'redux-mock-store';
+import { gotWigs, GOT_ALL_WIGS } from './wigs';
 import thunkMiddleware from 'redux-thunk';
-import wigsReducer from './wigsReducer';
+
+const wig = [
+  {
+    name: 'Test Wig',
+    price: 20.1
+  }
+];
+
+describe('Action creators', () => {
+  describe('gotWigs', () => {
+    it('returns properly formatted action', () => {
+      expect(gotWigs(wig)).to.be.deep.equal({
+        type: GOT_ALL_WIGS,
+        wigs: wig
+      });
+    });
+  });
+});
