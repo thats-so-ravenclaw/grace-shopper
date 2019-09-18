@@ -54,7 +54,7 @@ export const logout = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function userReducer(user = {}, action) {
+export default function(user = {}, action) {
   switch (action.type) {
     case GET_USER:
       return action.user;

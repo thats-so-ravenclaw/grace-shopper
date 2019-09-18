@@ -25,7 +25,7 @@ export const getAllWigs = () => async dispatch => {
 };
 
 //REDUCER
-export default function wigsReducer(wigs = [], action) {
+export default function(wigs = [], action) {
   switch (action.type) {
     case GOT_ALL_WIGS:
       return action.wigs;

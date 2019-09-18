@@ -2,10 +2,10 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { userReducer } from './user';
-import { wigsReducer } from './wigs';
+import user from './user';
+import wigs from './wigs';
 
-const reducer = combineReducers({ userReducer, wigsReducer });
+const reducer = combineReducers({ user, wigs });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
