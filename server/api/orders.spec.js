@@ -13,7 +13,11 @@ describe('Orders Routes', () => {
   });
 
   let data = {
-    total: 49.33
+    total: 49.33,
+    street: '5 Hanover Sq',
+    city: 'New York',
+    state: 'NY',
+    zip: '10001'
   };
 
   describe('/api/orders', () => {
