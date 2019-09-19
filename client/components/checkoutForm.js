@@ -32,6 +32,8 @@ class CheckoutForm extends React.Component {
   }
 
   render() {
+    const { cart } = this.props;
+
     return (
       <form onSubmit={this.handleSubmit}>
         <h2>Checkout</h2>
