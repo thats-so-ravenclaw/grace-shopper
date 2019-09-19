@@ -5,8 +5,12 @@ module.exports = router;
 router.post('/', async (req, res, next) => {
   try {
     const oneOrder = await Order.create({
-      status: 'fulfilled',
-      total: req.body.total
+      status: 'submitted',
+      total: req.body.total,
+      street: req.body.street,
+      city: req.body.city,
+      state: req.body.state,
+      zip: req.body.zip
     });
     if (oneOrder) {
       res.status(201).send('Order successfully created.');
