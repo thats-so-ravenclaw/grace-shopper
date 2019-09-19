@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Login, Signup, UserHome } from './components';
 import { me } from './store';
 import AllWigs from './components/all-wigs';
+import ViewCart from './components/viewCart';
 
 /**
  * COMPONENT
@@ -23,6 +24,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/wigs" component={AllWigs} />
+        <Route path="/viewCart" component={ViewCart} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
