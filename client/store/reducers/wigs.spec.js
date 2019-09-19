@@ -3,7 +3,8 @@
 import MockAxiosAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { expect } from 'chai';
-import { gotWigs, GOT_ALL_WIGS, getAllWigs } from './wigs';
+import { gotWigs, getAllWigs } from './wigs';
+import { GOT_ALL_WIGS } from './index';
 import configureMockstore from 'redux-mock-store';
 import thunkMiddleware from 'redux-thunk';
 
