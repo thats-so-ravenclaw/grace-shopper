@@ -11,7 +11,11 @@ describe('Orders model', () => {
   beforeEach(() => {
     order = Order.build({
       status: 'pending',
-      total: 600.05
+      total: 600.05,
+      street: '5 Hanover Sq',
+      city: 'New York',
+      state: 'NY',
+      zip: '10001'
     });
   });
 
