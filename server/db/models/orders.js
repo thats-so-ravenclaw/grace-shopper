@@ -6,7 +6,7 @@ const Order = db.define('order', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isIn: [['pending', 'fullfilled']]
+      isIn: [['pending', 'fulfilled']]
     }
   },
   total: {
