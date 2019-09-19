@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {placeOrderThunk} from '../store/reducers/order'
 //need to import thunks to post an order
 
 class CheckoutForm extends React.Component {
@@ -27,7 +28,14 @@ class CheckoutForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    //this.props.postNewOrder(this.state) //this thunk does not exist yet
+    const order = {
+      total: this.state.total,
+      street: this.state.shippingAddressStreet,
+      city: this.state.shippingAddressCity,
+      state: this.state.shippingAddressState,
+      zip: this.state.shippingAddressZipcode
+    }
+    this.props.placeOrderThunk(order, this.state.cart, this.state.total)
     //window.location.pathname = '/orderCompleted' //to render completed order page, subject to change
   }
 
@@ -137,14 +145,15 @@ class CheckoutForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart
+    cart: state.cart,
+    total: state.total
   };
 };
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     //some thunks go here
-//   }
-// }
+const mapDispatchToProps = dispatch => {
+  return {
+    placeOrderThunk(order, cart, total) => dispatch(placeOrderThunk(order, cart, total))
+  }
+}
 
-export default connect(mapStateToProps)(CheckoutForm);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutForm);
