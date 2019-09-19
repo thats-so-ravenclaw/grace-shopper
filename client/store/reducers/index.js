@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import user from './user';
 import wigs from './wigs';
+import cart from './cart';
 
 export const GET_USER = 'GET_USER';
 export const REMOVE_USER = 'REMOVE_USER';
@@ -14,7 +15,8 @@ export const CART_ERROR = 'GET_CART_ERROR';
 
 const rootReducer = combineReducers({
   user,
-  wigs
+  wigs,
+  cart
 });
 
 export default rootReducer;
