@@ -1,6 +1,7 @@
 const User = require('./user');
 const Wig = require('./wig');
-const Orders = require('./orders');
+const Order = require('./orders');
+const LineItem = require('./lineItems');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -16,11 +17,14 @@ const Orders = require('./orders');
  * instead of: const User = require('../db/models/user')
  */
 
-User.hasMany(Orders);
-Orders.hasMany(Wig);
+User.hasMany(Order);
+Wig.hasMany(Order);
+Order.hasMany(LineItem);
+Wig.hasMany(LineItem);
 
 module.exports = {
   User,
   Wig,
-  Orders
+  Order,
+  LineItem
 };

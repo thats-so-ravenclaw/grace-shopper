@@ -1,10 +1,18 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const Orders = db.define('orders', {
+const Order = db.define('order', {
   status: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      isIn: [['pending', 'fullfilled']]
+    }
+  },
+  total: {
+    type: Sequelize.FLOAT,
+    allowNull: false
   }
 });
 
-module.exports = Orders;
+module.exports = Order;
