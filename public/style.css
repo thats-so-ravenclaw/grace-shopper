@@ -19,3 +19,41 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+/* body of the AllWigs page */
+.allwigs-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.wig-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.wig-card {
+  flex: 1 1 30%;
+  margin: 10px 20px 25px;
+}
+
+.wig-img-div img {
+  display: block;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.wig-btn-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.wig-btn-div button {
+  font-size: 14px;
+  background-color: lightblue;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding: 7px;
+}
