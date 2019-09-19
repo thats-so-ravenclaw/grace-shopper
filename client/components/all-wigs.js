@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getAllWigs } from '../store/reducers/wigs';
+import WigCard from './wig-card';
 
 class AllWigs extends React.Component {
   componentDidMount() {
@@ -10,19 +11,12 @@ class AllWigs extends React.Component {
   render() {
     const wigs = this.props.wigs;
     return (
-      <div>
-        <h1>Shop our wigs!</h1>
-        <div className="container wigs">
+      <div className="allwigs-content">
+        <h1>Shop our wigs</h1>
+        <div className="wig-container">
           {wigs === undefined
             ? ''
-            : wigs.map(wig => (
-                <div className="wig-card" key={wig.id}>
-                  <img src={wig.image} />
-                  <h3>{wig.name}</h3>
-                  <p>{wig.price}</p>
-                  <button type="button">View</button>
-                </div>
-              ))}
+            : wigs.map(wig => <WigCard wig={wig} key={wig.id} />)}
         </div>
       </div>
     );
