@@ -57,3 +57,17 @@ form div {
   border-radius: 5px;
   padding: 7px;
 }
+
+/* PENDING
+.checkout-button-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.checkout-button-div button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+*/
