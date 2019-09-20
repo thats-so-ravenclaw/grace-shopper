@@ -70,8 +70,43 @@ export const placeOrderThunk = (order, cart, total) => {
 
 export default function cart(state = [], action) {
   switch (action.type) {
-    case ADD_ITEM_TO_CART:
-      return [...state, action.item];
+    case ADD_ITEM_TO_CART: {
+      const existingCart = [...state];
+      // if there are item(s) already in the cart
+      if (existingCart.length !== 0) {
+        let isAlreadyInCart = false;
+        // map through the cart and check if we already have that wig in the cart
+        const updatedCart = existingCart.map(item => {
+          // if there's already that wig in the cart
+          if (item.id === action.item.id) {
+            // then set isAlreadyInCart to true
+            // increase the quantity of that item in the cart
+            // increase price of that item in the cart
+            isAlreadyInCart = true;
+            item.cartQuantity += 1;
+            item.price += item.price;
+          }
+          return item;
+        });
+        // if we increased the item's cartQuantity, then return the updatedCart array
+        if (isAlreadyInCart) {
+          return [...updatedCart];
+        } else {
+          // if the wig to add wasn't already in the cart, then create a cartQuantity property on the item
+          let newItem = action.item;
+          newItem.cartQuantity = 1;
+          // add the new wig item to the array and return it
+          return [...existingCart, newItem];
+        }
+      } else {
+        // if there's nothing in the cart
+        // add the cartQuantity to the item
+        // and then add the item to the cart
+        let newItem = action.item;
+        newItem.cartQuantity = 1;
+        return [newItem];
+      }
+    }
     case GET_CART:
       return state;
     case PLACE_NEW_ORDER:
