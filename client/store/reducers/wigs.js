@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GOT_ALL_WIGS, GOT_SINGLE_WIG } from './index';
+import { GOT_ALL_WIGS, GOT_SINGLE_WIG, PLACE_NEW_ORDER } from './index';
 
 //ACTION CREATORS
 export const gotWigs = wigs => ({
@@ -28,8 +28,17 @@ export default function wigs(state = [], action) {
   switch (action.type) {
     case GOT_ALL_WIGS:
       return action.wigs;
-    case GOT_SINGLE_WIG:
-      return action.wig;
+    // case GOT_SINGLE_WIG:
+    //   return action.wig; //this will currently delete all wigs and replace the array with just one element - need to refactor
+    case PLACE_NEW_ORDER:
+      let newState = state;
+      action.idArray.forEach(id => {
+        let thisWig = newState.findIndex(function(wig) {
+          return wig.id === id;
+        });
+        newState[thisWig].quantity--;
+      });
+      return newState;
     default:
       return state;
   }

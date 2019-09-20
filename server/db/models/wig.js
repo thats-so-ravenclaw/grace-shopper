@@ -1,5 +1,6 @@
-const db = require('../db')
-const Sequelize = require('sequelize')
+const db = require('../db');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const Wig = db.define('wig', {
   name: {
@@ -50,6 +51,33 @@ const Wig = db.define('wig', {
       notEmpty: true
     }
   }
-})
+});
 
-module.exports = Wig
+//The code example below demonstrates a class method. Class methods are methods that are available on the model itself (aka the class). We often write these to get instances, or do something to more than one instance.
+
+// Class method that accepts an array of wig ids and returns an array of those wigs from the database.
+Wig.findByIds = async function(wigIds) {
+  const wigstoupdate = await Wig.findAll({
+    where: {
+      id: {
+        [Op.in]: wigIds
+      }
+    }
+  });
+  return wigstoupdate;
+};
+
+// Instance method to check if a wig has sufficient quantity/stock to fulfill an order.
+Wig.prototype.checkQuantity = function(orderQuantity) {
+  if (this.quantity >= orderQuantity) {
+    return true;
+  }
+  return false;
+};
+
+// Instance method to calculate the quantity that will remain after an order is fulfilled.
+Wig.prototype.getReducedQuantity = function(orderQuantity) {
+  return this.quantity - orderQuantity;
+};
+
+module.exports = Wig;
