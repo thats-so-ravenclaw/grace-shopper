@@ -1,18 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Login } from './auth-form';
+import { Link } from 'react-router-dom';
+import CheckoutForm from './checkoutForm';
 
 class ViewCart extends React.Component {
   render() {
     const items = this.props.cart ? (
       this.props.cart.map(item => {
+        // eslint-disable-next-line no-return-assign
         return (
-          <div className="items" key={item.id}>
-            <div className="wig-img-div">
+          <div className="cart-div" key={item.id}>
+            <div className="item-img-div">
               <img src={item.image} />
             </div>
-            <div className="wig-text-div">
+            <div className="item-text-div">
               <h3>{item.name}</h3>
               <p>Price: ${item.price}</p>
+              <p>Quantity: placeholder</p>
             </div>
           </div>
         );
@@ -30,11 +35,17 @@ class ViewCart extends React.Component {
     );
 
     return (
-      <div className="cart-items">
-        {items}
-        <div className="test">Total Price: ${itemSum}</div>
-        <div className="checkout-button-div">
-          <button type="button">Checkout</button>
+      <div className="cart-container">
+        <div className="cart-items">
+          {items}
+          <div className="cart-div">
+            {this.props.cart.length > 0 ? `Total Price: $ ${itemSum}` : ''}
+          </div>
+          <div className="checkout-button-div">
+            <Link to="/checkoutForm">
+              <button type="button">Checkout</button>
+            </Link>
+          </div>
         </div>
       </div>
     );

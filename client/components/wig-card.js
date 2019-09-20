@@ -40,7 +40,7 @@ class WigCard extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addItem: itemId => dispatch(addToCartThunk(itemId))
+    addItem: item => dispatch(addToCartThunk(item))
   };
 };
 
