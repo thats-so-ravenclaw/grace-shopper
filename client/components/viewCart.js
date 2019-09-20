@@ -3,9 +3,17 @@ import { connect } from 'react-redux';
 import { Login } from './auth-form';
 import { Link } from 'react-router-dom';
 import CheckoutForm from './checkoutForm';
+// import {getCart} from '../store/reducers/cart'
 
 class ViewCart extends React.Component {
+  // componentDidMount() {
+  //   this.props.getCart();
+  // }
+
   render() {
+    // console.log('CAAART :', this.props.cart);
+    // console.log('CAAART :', this.props.cart);
+
     const items = this.props.cart ? (
       this.props.cart.map(item => {
         // eslint-disable-next-line no-return-assign
@@ -17,7 +25,7 @@ class ViewCart extends React.Component {
             <div className="item-text-div">
               <h3>{item.name}</h3>
               <p>Price: ${item.price}</p>
-              <p>Quantity: placeholder</p>
+              <p>Quantity: {item.cartQuantity}</p>
             </div>
           </div>
         );
@@ -55,5 +63,9 @@ class ViewCart extends React.Component {
 const mapStateToProps = state => ({
   cart: state.cart
 });
+
+// const mapDispatchToProps = dispatch => ({
+//   getCart: () => dispatch(getCart())
+// })
 
 export default connect(mapStateToProps)(ViewCart);

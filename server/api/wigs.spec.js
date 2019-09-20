@@ -13,6 +13,7 @@ describe('Wig Routes', () => {
   });
 
   let blondeWig;
+  let id = 1;
 
   beforeEach(async () => {
     blondeWig = await Wig.create({
@@ -35,5 +36,19 @@ describe('Wig Routes', () => {
       expect(res.body).to.be.an('array');
       expect(res.body[0].name).to.be.equal('Marilyn Monroe');
     });
-  }); // end describe('/api/users')
+  });
+
+  describe('/api/wigs/quantity', () => {
+    it('PUT /api/wigs/quantity', async () => {
+      const res = await request(app)
+        .put('/api/wigs/quantity')
+        .send({
+          ids: [blondeWig.id]
+        })
+        .expect(200);
+      console.log(res.body);
+      // expect(res.body[0].quantity).to.equal(1);
+    });
+  });
+  // end describe('/api/users')
 });
