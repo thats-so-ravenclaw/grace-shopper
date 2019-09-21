@@ -67,7 +67,7 @@ Wig.findByIds = async function(wigIds) {
   return wigstoupdate;
 };
 
-// Instance method to check if a wig has sufficient quantity/stock to fulfill an order.
+// Instance method that returns true if there's sufficient stock/quantity to fulfill the order and false if there isn't.
 Wig.prototype.checkQuantity = function(orderQuantity) {
   if (this.quantity >= orderQuantity) {
     return true;
