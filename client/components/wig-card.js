@@ -25,11 +25,17 @@ class WigCard extends React.Component {
           <h3>{wig.name}</h3>
           <p>Price: ${wig.price}</p>
         </div>
+        {wig.quantity === 0 ? <p>This item is sold out.</p> : ''}
         <div className="wig-btn-div">
           <Link to={`/wigs/${wig.id}`}>
             <button type="button">View</button>
           </Link>
-          <button type="button" onClick={this.addClick} value={wig}>
+          <button
+            type="button"
+            value={wig}
+            onClick={this.addClick}
+            disabled={wig.quantity === 0}
+          >
             Add to Cart
           </button>
         </div>

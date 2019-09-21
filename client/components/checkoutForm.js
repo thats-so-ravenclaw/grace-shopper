@@ -35,12 +35,15 @@ class CheckoutForm extends React.Component {
       state: this.state.shippingAddressState,
       zip: this.state.shippingAddressZipcode
     };
-    this.props.placeOrderThunk(order, this.state.cart, this.state.total);
+    this.props.placeOrderThunk(order, this.props.cart, this.props.total);
     //window.location.pathname = '/orderCompleted' //to render completed order page, subject to change
   }
 
   render() {
     const { cart } = this.props;
+    // We aren't storing the total in the store yet so total is undefined
+    console.log('TOTAL :', this.props.total);
+    console.log('this.props.cart: ', this.props.cart);
 
     return (
       <form onSubmit={this.handleSubmit}>

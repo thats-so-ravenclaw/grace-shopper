@@ -6,8 +6,9 @@ import {
   PLACE_ORDER_ERROR
 } from './index';
 
-// for now we are not using axios, but we may use it if the cart will be stored in the database
-// import axios from 'axios';
+// Using Axios to update the quantity in the database on checkout
+// and to create an order in the database
+import Axios from 'axios';
 
 //action creators
 export const addToCart = item => ({
@@ -35,7 +36,7 @@ export const placeNewOrderError = error => ({
 
 //thunk creators currently do not need to be async functions since we are not accessing the database
 export const addToCartThunk = item => {
-  return async dispatch => {
+  return dispatch => {
     try {
       dispatch(addToCart(item));
     } catch (error) {
@@ -45,7 +46,7 @@ export const addToCartThunk = item => {
 };
 
 export const getCartThunk = () => {
-  return async dispatch => {
+  return dispatch => {
     try {
       dispatch(getCart());
     } catch (error) {
@@ -58,8 +59,8 @@ export const placeOrderThunk = (order, cart, total) => {
   return async dispatch => {
     try {
       const idArray = cart.map(item => item.id);
-      const newCart = await Axios.put('/api/wigs/quantity', idArray);
-      const newOrder = await Axios.post('/api/orders', order); // for updating line item associations down the line
+      const newCart = await Axios.put('/api/wigs/quantity', cart);
+      // const newOrder = await Axios.post('/api/orders', order); // for updating line item associations down the line
       // if (!newCart) //add some error message if newCart doesn't exist
       dispatch(placeNewOrder());
     } catch (error) {
