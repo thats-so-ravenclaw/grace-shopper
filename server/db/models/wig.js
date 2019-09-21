@@ -16,8 +16,11 @@ const Wig = db.define('wig', {
     allowNull: false
   },
   price: {
-    type: Sequelize.FLOAT,
-    allowNull: false
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    get() {
+      return this.getDataValue('price') / 100;
+    }
   },
   quantity: {
     type: Sequelize.INTEGER,
