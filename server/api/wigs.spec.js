@@ -13,7 +13,6 @@ describe('Wig Routes', () => {
   });
 
   let blondeWig;
-  let id = 1;
 
   beforeEach(async () => {
     blondeWig = await Wig.create({
@@ -24,6 +23,7 @@ describe('Wig Routes', () => {
       material: 'human',
       color: 'blonde'
     });
+    blondeWig.cartQuantity = 1;
     return blondeWig;
   });
 
@@ -43,7 +43,7 @@ describe('Wig Routes', () => {
       const res = await request(app)
         .put('/api/wigs/quantity')
         .send({
-          ids: [blondeWig.id]
+          cart: { blondeWig }
         })
         .expect(200);
       console.log(res.body);

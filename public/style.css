@@ -57,3 +57,7 @@ form div {
   border-radius: 5px;
   padding: 7px;
 }
+
+.wig-btn-div button:disabled {
+  background-color: grey;
+}
