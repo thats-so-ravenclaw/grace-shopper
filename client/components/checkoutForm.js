@@ -41,7 +41,8 @@ class CheckoutForm extends React.Component {
 
   render() {
     const { cart } = this.props;
-    // We aren't storing the total in the store yet so total is undefined
+    // We aren't storing the total in the store yet so total is
+    console.log('PROPS ', this.props);
     console.log('TOTAL :', this.props.total);
     console.log('this.props.cart: ', this.props.cart);
 
