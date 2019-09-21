@@ -23,7 +23,7 @@ for (let i = 1; i < 51; i++) {
   let newWig = {
     name: `The ${faker.address.city()}`,
     image: faker.image.imageUrl(),
-    price: faker.finance.amount() * 100,
+    price: faker.random.number(),
     quantity: 25,
     description: faker.name.jobDescriptor(),
     length: 'medium',
