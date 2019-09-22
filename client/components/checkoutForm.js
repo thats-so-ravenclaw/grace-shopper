@@ -51,7 +51,7 @@ class CheckoutForm extends React.Component {
           <div className="summary-div" key={order.id}>
             <p>{order.name}</p>
             <p>Quantity: {order.cartQuantity}</p>
-            <p>Price: ${order.price * order.cartQuantity}</p>
+            <p>Price: ${order.price * order.cartQuantity / 100}</p>
           </div>
         );
       })
@@ -62,9 +62,15 @@ class CheckoutForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <h2>Checkout</h2>
         <div id="order-summary">
-          <h4>Order Summary</h4>
-          {orderSummary}
-          <h4>Order Total: ${this.props.total}</h4>
+          {cart.length > 0 ? (
+            <div>
+              <h4>Order Summary</h4>
+              {orderSummary}
+              <p>Order Total: ${this.props.total / 100}</p>
+            </div>
+          ) : (
+            <div className="no-items">There are no items in your cart!</div>
+          )}
         </div>
         <div className="form-box">
           <div>

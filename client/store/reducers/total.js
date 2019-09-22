@@ -1,11 +1,9 @@
 import { GET_TOTAL, TOTAL_ERROR } from './index';
 
-import Axios from 'axios';
-
 //ACTION CREATOR
-export const addTotal = eachItemSubtotal => ({
+export const addTotal = wigPrice => ({
   type: GET_TOTAL,
-  eachItemSubtotal
+  wigPrice
 });
 
 const totalErrorAction = error => ({
@@ -14,28 +12,27 @@ const totalErrorAction = error => ({
 });
 
 //THUNK CREATOR
-export const addTotalThunk = itemPrice => {
+export const addTotalThunk = wigPrice => {
   return dispatch => {
-    const eachItemSubtotal = itemPrice;
     try {
-      dispatch(addTotal(eachItemSubtotal));
+      dispatch(addTotal(wigPrice));
     } catch (error) {
       dispatch(totalErrorAction(error));
     }
   };
 };
 
+//REDUCER
 export default function total(state = [], action) {
   switch (action.type) {
     case GET_TOTAL: {
-      let cost = action.eachItemSubtotal;
+      let cost = action.wigPrice;
       let existingTotal = state;
 
       const updatedTotal =
         existingTotal.length !== 0
           ? existingTotal + cost
           : (existingTotal = cost);
-
       return updatedTotal;
     }
     default:
@@ -44,6 +41,22 @@ export default function total(state = [], action) {
 }
 
 //PLEASE KEEP UNTIL WORKING
+
+//Thunk creator to grab price direclty from backend
+// export const addTotalThunk = wigId => {
+//   console.log('TYPEOF', typeof wigId);
+//   console.log('WIG ID', wigId);
+//   return async dispatch => {
+//     const { data } = await Axios.get(`/api/wigs/${wigId}`);
+//     const wigPrice = data[0].price;
+
+//     try {
+//       dispatch(addTotal(wigPrice));
+//     } catch (error) {
+//       dispatch(totalErrorAction(error));
+//     }
+//   };
+// };
 
 // const updatedTotal =
 //   existingTotal.length !== 0
