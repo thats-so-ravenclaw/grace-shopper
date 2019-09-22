@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Login } from './auth-form';
 import { Link } from 'react-router-dom';
-import CheckoutForm from './checkoutForm';
+
 // import {getCart} from '../store/reducers/cart'
 
 class ViewCart extends React.Component {
@@ -13,6 +12,7 @@ class ViewCart extends React.Component {
   render() {
     // console.log('CAAART :', this.props.cart);
     // console.log('CAAART :', this.props.cart);
+    console.log('THIS.PROPS ', this.props);
 
     const items = this.props.cart ? (
       this.props.cart.map(item => {
@@ -24,8 +24,8 @@ class ViewCart extends React.Component {
             </div>
             <div className="item-text-div">
               <h3>{item.name}</h3>
-              <p>Price: ${item.price}</p>
               <p>Quantity: {item.cartQuantity}</p>
+              <p>Price: ${item.price * item.cartQuantity}</p>
             </div>
           </div>
         );
@@ -35,9 +35,7 @@ class ViewCart extends React.Component {
     );
 
     const itemSum = this.props.cart ? (
-      this.props.cart.reduce((acc, item) => {
-        return (acc += item.price);
-      }, 0)
+      this.props.total
     ) : (
       <div className="no-items">There are no items in your cart!</div>
     );
@@ -61,11 +59,8 @@ class ViewCart extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart,
+  total: state.total
 });
-
-// const mapDispatchToProps = dispatch => ({
-//   getCart: () => dispatch(getCart())
-// })
 
 export default connect(mapStateToProps)(ViewCart);
