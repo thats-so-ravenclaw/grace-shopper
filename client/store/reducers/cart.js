@@ -2,6 +2,8 @@ import {
   ADD_ITEM_TO_CART,
   GET_CART,
   CART_ERROR,
+  REMOVE_FROM_CART,
+  REMOVE_FROM_CART_ERROR,
   PLACE_NEW_ORDER,
   PLACE_ORDER_ERROR
 } from './index';
@@ -20,17 +22,28 @@ export const getCart = () => ({
   type: GET_CART
 });
 
+export const removeFromCart = wig => ({
+  type: REMOVE_FROM_CART,
+  wig
+});
+
 const cartErrorAction = error => ({
   type: CART_ERROR,
   error
 });
 
-export const placeNewOrder = () => ({
-  type: PLACE_NEW_ORDER
+export const placeNewOrder = wigAndQuantity => ({
+  type: PLACE_NEW_ORDER,
+  wigAndQuantity
 });
 
 export const placeNewOrderError = error => ({
   type: PLACE_ORDER_ERROR,
+  error
+});
+
+export const removeFromCartError = error => ({
+  type: REMOVE_FROM_CART_ERROR,
   error
 });
 
@@ -55,14 +68,27 @@ export const getCartThunk = () => {
   };
 };
 
-export const placeOrderThunk = (order, cart, total) => {
+export const removeFromCartThunk = wig => {
+  return dispatch => {
+    try {
+      dispatch(removeFromCart(wig));
+    } catch (error) {
+      dispatch(removeFromCartError(error));
+    }
+  };
+};
+export const placeOrderThunk = (order, cart) => {
   return async dispatch => {
     try {
-      const idArray = cart.map(item => item.id);
+      let wigAndQuantity = {};
+      cart.forEach(item => {
+        wigAndQuantity[item.id] = item.cartQuantity;
+      });
       const newCart = await Axios.put('/api/wigs/quantity', cart);
-      // const newOrder = await Axios.post('/api/orders', order); // for updating line item associations down the line
+      const newOrder = await Axios.post('/api/orders', order);
+      // for updating line item associations down the line
       // if (!newCart) //add some error message if newCart doesn't exist
-      dispatch(placeNewOrder());
+      dispatch(placeNewOrder(wigAndQuantity));
     } catch (error) {
       dispatch(placeNewOrderError(error));
     }
@@ -85,7 +111,6 @@ export default function cart(state = [], action) {
             // increase price of that item in the cart
             isAlreadyInCart = true;
             item.cartQuantity += 1;
-            // item.price += item.price;
           }
           return item;
         });
@@ -110,6 +135,9 @@ export default function cart(state = [], action) {
     }
     case GET_CART:
       return state;
+    case REMOVE_FROM_CART:
+      let existingCart = [...state];
+      return existingCart.filter(wig => wig.id !== action.wig.id);
     case PLACE_NEW_ORDER:
       return [];
     default:

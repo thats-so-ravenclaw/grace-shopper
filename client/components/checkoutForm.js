@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { placeOrderThunk } from '../store/reducers/order';
+import { placeOrderThunk } from '../store/reducers/cart';
 //need to import thunks to post an order
 
 class CheckoutForm extends React.Component {
@@ -29,22 +29,21 @@ class CheckoutForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const order = {
-      total: this.state.total,
+      total: this.props.total,
+      name: this.state.name,
       street: this.state.shippingAddressStreet,
       city: this.state.shippingAddressCity,
       state: this.state.shippingAddressState,
-      zip: this.state.shippingAddressZipcode
+      zip: this.state.shippingAddressZipcode,
+      user: this.props.user ? this.props.user.id : null
     };
-    this.props.placeOrderThunk(order, this.props.cart, this.props.total);
+    this.props.placeOrderThunk(order, this.props.cart);
     //window.location.pathname = '/orderCompleted' //to render completed order page, subject to change
   }
 
   render() {
     const { cart } = this.props;
-    // We aren't storing the total in the store yet so total is
-    // console.log('PROPS ', this.props);
-    // console.log('TOTAL :', this.props.total);
-    // console.log('this.props.cart: ', this.props.cart);
+
     const orderSummary = cart ? (
       cart.map(order => {
         return (
@@ -170,14 +169,15 @@ class CheckoutForm extends React.Component {
 const mapStateToProps = state => {
   return {
     cart: state.cart,
-    total: state.total
+    total: state.total,
+    user: state.user
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    placeOrderThunk(order, cart, total) {
-      dispatch(placeOrderThunk(order, cart, total));
+    placeOrderThunk(order, cart) {
+      dispatch(placeOrderThunk(order, cart));
     }
   };
 };

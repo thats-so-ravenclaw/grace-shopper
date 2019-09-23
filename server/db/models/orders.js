@@ -13,6 +13,10 @@ const Order = db.define('order', {
     type: Sequelize.FLOAT,
     allowNull: false
   },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   street: {
     type: Sequelize.STRING,
     allowNull: false
