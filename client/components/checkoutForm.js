@@ -37,8 +37,7 @@ class CheckoutForm extends React.Component {
       zip: this.state.shippingAddressZipcode,
       user: this.props.user ? this.props.user.id : null
     };
-    console.log(order);
-    this.props.placeOrderThunk(order, this.props.cart, this.props.total);
+    this.props.placeOrderThunk(order, this.props.cart);
     //window.location.pathname = '/orderCompleted' //to render completed order page, subject to change
   }
 
@@ -177,8 +176,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    placeOrderThunk(order, cart, total) {
-      dispatch(placeOrderThunk(order, cart, total));
+    placeOrderThunk(order, cart) {
+      dispatch(placeOrderThunk(order, cart));
     }
   };
 };

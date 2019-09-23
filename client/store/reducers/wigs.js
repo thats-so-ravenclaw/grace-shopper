@@ -30,15 +30,18 @@ export default function wigs(state = [], action) {
       return action.wigs;
     // case GOT_SINGLE_WIG:
     //   return action.wig; //this will currently delete all wigs and replace the array with just one element - need to refactor
-    case PLACE_NEW_ORDER:
-      let newState = state;
-      action.idArray.forEach(id => {
-        let thisWig = newState.findIndex(function(wig) {
-          return wig.id === id;
-        });
-        newState[thisWig].quantity--;
+    case PLACE_NEW_ORDER: {
+      const wigAndQuantity = action.wigAndQuantity;
+      const allWigs = [...state];
+      const updatedWigs = allWigs.map(wig => {
+        if (wigAndQuantity.hasOwnProperty(wig.id)) {
+          let quantToDecrement = wigAndQuantity[wig.id];
+          wig.quantity = wig.quantity - Number(quantToDecrement);
+        }
+        return wig;
       });
-      return newState;
+      return updatedWigs;
+    }
     default:
       return state;
   }

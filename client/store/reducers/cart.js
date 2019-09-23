@@ -32,9 +32,9 @@ const cartErrorAction = error => ({
   error
 });
 
-export const placeNewOrder = idArray => ({
+export const placeNewOrder = wigAndQuantity => ({
   type: PLACE_NEW_ORDER,
-  idArray
+  wigAndQuantity
 });
 
 export const placeNewOrderError = error => ({
@@ -77,15 +77,18 @@ export const removeFromCartThunk = wig => {
     }
   };
 };
-export const placeOrderThunk = (order, cart, total) => {
+export const placeOrderThunk = (order, cart) => {
   return async dispatch => {
     try {
-      const idArray = cart.map(item => item.id);
+      let wigAndQuantity = {};
+      cart.forEach(item => {
+        wigAndQuantity[item.id] = item.cartQuantity;
+      });
       const newCart = await Axios.put('/api/wigs/quantity', cart);
       const newOrder = await Axios.post('/api/orders', order);
       // for updating line item associations down the line
       // if (!newCart) //add some error message if newCart doesn't exist
-      dispatch(placeNewOrder());
+      dispatch(placeNewOrder(wigAndQuantity));
     } catch (error) {
       dispatch(placeNewOrderError(error));
     }
@@ -108,7 +111,6 @@ export default function cart(state = [], action) {
             // increase price of that item in the cart
             isAlreadyInCart = true;
             item.cartQuantity += 1;
-            // item.price += item.price;
           }
           return item;
         });
@@ -135,18 +137,7 @@ export default function cart(state = [], action) {
       return state;
     case REMOVE_FROM_CART:
       let existingCart = [...state];
-      // console.log('STATE ', existingCart);
-
-      // existingCart.map(function(wig) {
-      //   if (wig.id !== action.wig.id) {
-      //     return wig.id;
-      //   }
-      // });
       return existingCart.filter(wig => wig.id !== action.wig.id);
-
-    // console.log('AFTER STATE ', existingCart);
-    // console.log('AFTER STATE ', state);
-    // return existingCart;
     case PLACE_NEW_ORDER:
       return [];
     default:
