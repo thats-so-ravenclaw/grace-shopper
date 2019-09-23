@@ -7,6 +7,7 @@ import { me } from './store';
 import AllWigs from './components/all-wigs';
 import ViewCart from './components/viewCart';
 import CheckoutForm from './components/checkoutForm';
+import OrderCompleted from './components/order-completed';
 
 /**
  * COMPONENT
@@ -27,6 +28,7 @@ class Routes extends Component {
         <Route exact path="/wigs" component={AllWigs} />
         <Route path="/viewCart" component={ViewCart} />
         <Route path="/checkoutForm" component={CheckoutForm} />
+        <Route path="/orderCompleted" component={OrderCompleted} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
