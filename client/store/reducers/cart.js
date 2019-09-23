@@ -64,7 +64,7 @@ export const placeOrderThunk = (order, cart, total) => {
       const newOrder = await Axios.post('/api/orders', order);
       // for updating line item associations down the line
       // if (!newCart) //add some error message if newCart doesn't exist
-      dispatch(placeNewOrder());
+      dispatch(placeNewOrder(idArray));
     } catch (error) {
       dispatch(placeNewOrderError(error));
     }
