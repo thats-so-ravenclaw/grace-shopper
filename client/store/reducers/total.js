@@ -1,4 +1,4 @@
-import { GET_TOTAL, TOTAL_ERROR } from './index';
+import { GET_TOTAL, TOTAL_ERROR, REMOVE_FROM_TOTAL } from './index';
 
 //ACTION CREATOR
 export const addTotal = wigPrice => ({
@@ -11,6 +11,11 @@ const totalErrorAction = error => ({
   error
 });
 
+export const removeFromTotal = price => ({
+  type: REMOVE_FROM_TOTAL,
+  price
+});
+
 //THUNK CREATOR
 export const addTotalThunk = wigPrice => {
   return dispatch => {
@@ -18,6 +23,16 @@ export const addTotalThunk = wigPrice => {
       dispatch(addTotal(wigPrice));
     } catch (error) {
       dispatch(totalErrorAction(error));
+    }
+  };
+};
+
+export const updateTotalThunk = price => {
+  return dispatch => {
+    try {
+      dispatch(removeFromTotal(price));
+    } catch (error) {
+      totalErrorAction(error);
     }
   };
 };
@@ -34,6 +49,15 @@ export default function total(state = [], action) {
           ? existingTotal + cost
           : (existingTotal = cost);
       return updatedTotal;
+    }
+    case REMOVE_FROM_TOTAL: {
+      let cost = action.price;
+      let existingTotal = state;
+      console.log('COST ', cost);
+
+      const decreasedUpdatedTotal =
+        existingTotal.length !== 0 ? existingTotal - cost : existingTotal;
+      return decreasedUpdatedTotal;
     }
     default:
       return state;

@@ -1,10 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { removeFromCartThunk } from '../store/reducers/cart';
+import { updateTotalThunk } from '../store/reducers/total';
 
 // import {getCart} from '../store/reducers/cart'
 
 class ViewCart extends React.Component {
+  constructor() {
+    super();
+    this.removeClickItem = this.removeClickItem.bind(this);
+  }
+
+  removeClickItem(event) {
+    console.log(event.target.value);
+    let wigPrice = event.target.value;
+    console.log('WIG PRICE ', wigPrice);
+    // this.props.removeItem(wigId);
+    // const wigPrice = this.props.cart.map(wig => {
+    //   return wig.price;
+    // });
+    this.props.decreaseTotal(wigPrice);
+  }
+
   render() {
     const items = this.props.cart
       ? this.props.cart.map(item => {
@@ -18,6 +36,13 @@ class ViewCart extends React.Component {
                 <h3>{item.name}</h3>
                 <p>Quantity: {item.cartQuantity}</p>
                 <p>Price: ${item.price * item.cartQuantity / 100}</p>
+                <button
+                  type="button"
+                  value={item.price}
+                  onClick={this.removeClickItem}
+                >
+                  Remove from Cart
+                </button>
               </div>
             </div>
           );
@@ -53,4 +78,9 @@ const mapStateToProps = state => ({
   total: state.total
 });
 
-export default connect(mapStateToProps)(ViewCart);
+const mapDispatchToProps = dispatch => ({
+  removeItem: wig => dispatch(removeFromCartThunk(wig)),
+  decreaseTotal: wigPrice => dispatch(updateTotalThunk(wigPrice))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewCart);
