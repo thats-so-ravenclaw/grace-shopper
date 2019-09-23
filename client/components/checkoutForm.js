@@ -41,15 +41,36 @@ class CheckoutForm extends React.Component {
 
   render() {
     const { cart } = this.props;
-    // We aren't storing the total in the store yet so total is undefined
-    console.log('TOTAL :', this.props.total);
-    console.log('this.props.cart: ', this.props.cart);
-
+    // We aren't storing the total in the store yet so total is
+    // console.log('PROPS ', this.props);
+    // console.log('TOTAL :', this.props.total);
+    // console.log('this.props.cart: ', this.props.cart);
+    const orderSummary = cart ? (
+      cart.map(order => {
+        return (
+          <div className="summary-div" key={order.id}>
+            <p>{order.name}</p>
+            <p>Quantity: {order.cartQuantity}</p>
+            <p>Price: ${order.price * order.cartQuantity / 100}</p>
+          </div>
+        );
+      })
+    ) : (
+      <div className="no-items">There are no items in your cart!</div>
+    );
     return (
       <form onSubmit={this.handleSubmit}>
         <h2>Checkout</h2>
         <div id="order-summary">
-          <h4>This is where an order summary lives</h4>
+          {cart.length > 0 ? (
+            <div>
+              <h4>Order Summary</h4>
+              {orderSummary}
+              <p>Order Total: ${this.props.total / 100}</p>
+            </div>
+          ) : (
+            <div className="no-items">There are no items in your cart!</div>
+          )}
         </div>
         <div className="form-box">
           <div>

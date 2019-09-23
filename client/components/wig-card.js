@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addToCartThunk } from '../store/reducers/cart';
+import { addTotalThunk } from '../store/reducers/total';
 
 class WigCard extends React.Component {
   constructor() {
@@ -11,6 +12,8 @@ class WigCard extends React.Component {
 
   addClick() {
     this.props.addItem(this.props.wig);
+    // this.props.addPrice(this.props.wig.id);
+    this.props.addPrice(this.props.wig.price);
   }
 
   render() {
@@ -23,7 +26,7 @@ class WigCard extends React.Component {
         </div>
         <div className="wig-text-div">
           <h3>{wig.name}</h3>
-          <p>Price: ${wig.price}</p>
+          <p>Price: ${wig.price / 100}</p>
         </div>
         {wig.quantity === 0 ? <p>This item is sold out.</p> : ''}
         <div className="wig-btn-div">
@@ -46,34 +49,9 @@ class WigCard extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addItem: item => dispatch(addToCartThunk(item))
+    addItem: item => dispatch(addToCartThunk(item)),
+    addPrice: wigPrice => dispatch(addTotalThunk(wigPrice))
   };
 };
 
 export default connect(null, mapDispatchToProps)(WigCard);
-
-//Lyndsey's code below that I didn't want to delete:
-// const WigCard = props => {
-//   const { wig } = props;
-//   return (
-//     <div className="wig-card" key={wig.id}>
-//       <div className="wig-img-div">
-//         <img src={wig.image} />
-//       </div>
-//       <div className="wig-text-div">
-//         <h3>{wig.name}</h3>
-//         <p>Price: ${wig.price}</p>
-//       </div>
-//       <div className="wig-btn-div">
-//         <Link to={`/wigs/${wig.id}`}>
-//           <button type="button">View</button>
-//         </Link>
-//         <button type="button" onClick={this.addClick}>
-//           Add to Cart
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default WigCard;

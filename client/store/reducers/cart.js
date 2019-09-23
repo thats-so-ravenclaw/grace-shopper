@@ -85,7 +85,7 @@ export default function cart(state = [], action) {
             // increase price of that item in the cart
             isAlreadyInCart = true;
             item.cartQuantity += 1;
-            item.price += item.price;
+            // item.price += item.price;
           }
           return item;
         });
