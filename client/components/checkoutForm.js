@@ -38,7 +38,7 @@ class CheckoutForm extends React.Component {
       user: this.props.user ? this.props.user.id : null
     };
     this.props.placeOrderThunk(order, this.props.cart);
-    //window.location.pathname = '/orderCompleted' //to render completed order page, subject to change
+    window.location.pathname = '/orderCompleted';
   }
 
   render() {

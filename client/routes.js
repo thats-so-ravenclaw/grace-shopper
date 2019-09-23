@@ -7,6 +7,7 @@ import { me } from './store';
 import AllWigs from './components/all-wigs';
 import ViewCart from './components/viewCart';
 import CheckoutForm from './components/checkoutForm';
+import OrderCompleted from './components/order-completed';
 
 /**
  * COMPONENT
@@ -22,11 +23,13 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route exact path="/" component={AllWigs} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/wigs" component={AllWigs} />
-        <Route path="/viewCart" component={ViewCart} />
-        <Route path="/checkoutForm" component={CheckoutForm} />
+        <Route exact path="/viewCart" component={ViewCart} />
+        <Route exact path="/checkoutForm" component={CheckoutForm} />
+        <Route path="/orderCompleted" component={OrderCompleted} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
