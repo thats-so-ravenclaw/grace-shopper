@@ -1,4 +1,9 @@
-import { GET_TOTAL, TOTAL_ERROR, REMOVE_FROM_TOTAL } from './index';
+import {
+  GET_TOTAL,
+  TOTAL_ERROR,
+  REMOVE_FROM_TOTAL,
+  PLACE_NEW_ORDER
+} from './index';
 
 //ACTION CREATOR
 export const addTotal = wigPrice => ({
@@ -59,6 +64,8 @@ export default function total(state = [], action) {
         existingTotal.length !== 0 ? existingTotal - cost : '';
       return decreasedUpdatedTotal;
     }
+    case PLACE_NEW_ORDER:
+      return 0;
     default:
       return state;
   }
