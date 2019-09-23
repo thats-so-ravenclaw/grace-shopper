@@ -32,8 +32,9 @@ const cartErrorAction = error => ({
   error
 });
 
-export const placeNewOrder = () => ({
-  type: PLACE_NEW_ORDER
+export const placeNewOrder = idArray => ({
+  type: PLACE_NEW_ORDER,
+  idArray
 });
 
 export const placeNewOrderError = error => ({
@@ -81,7 +82,8 @@ export const placeOrderThunk = (order, cart, total) => {
     try {
       const idArray = cart.map(item => item.id);
       const newCart = await Axios.put('/api/wigs/quantity', cart);
-      const newOrder = await Axios.post('/api/orders', order); // for updating line item associations down the line
+      const newOrder = await Axios.post('/api/orders', order);
+      // for updating line item associations down the line
       // if (!newCart) //add some error message if newCart doesn't exist
       dispatch(placeNewOrder());
     } catch (error) {
@@ -132,19 +134,19 @@ export default function cart(state = [], action) {
     case GET_CART:
       return state;
     case REMOVE_FROM_CART:
-      const existingCart = [...state];
-      console.log('STATE ', existingCart);
+      let existingCart = [...state];
+      // console.log('STATE ', existingCart);
 
-      existingCart.map(function(wig) {
-        if (wig.id !== action.wig.id) {
-          return wig.id;
-        }
-      });
-      // existingCart.filter(wig => wig.id !== action.wig.id);
+      // existingCart.map(function(wig) {
+      //   if (wig.id !== action.wig.id) {
+      //     return wig.id;
+      //   }
+      // });
+      return existingCart.filter(wig => wig.id !== action.wig.id);
 
-      console.log('AFTER STATE ', existingCart);
-      console.log('AFTER STATE ', state);
-      return existingCart;
+    // console.log('AFTER STATE ', existingCart);
+    // console.log('AFTER STATE ', state);
+    // return existingCart;
     case PLACE_NEW_ORDER:
       return [];
     default:

@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { removeFromCartThunk } from '../store/reducers/cart';
 import { updateTotalThunk } from '../store/reducers/total';
 
-// import {getCart} from '../store/reducers/cart'
-
 class ViewCart extends React.Component {
   constructor() {
     super();
@@ -13,14 +11,11 @@ class ViewCart extends React.Component {
   }
 
   removeClickItem(event) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     let wigPrice = event.target.value;
-    console.log('WIG PRICE ', wigPrice);
-    // this.props.removeItem(wigId);
-    // const wigPrice = this.props.cart.map(wig => {
-    //   return wig.price;
-    // });
+    // console.log('WIG PRICE ', wigPrice);
     this.props.decreaseTotal(wigPrice);
+    this.props.removeItem(this.props.cart[0]);
   }
 
   render() {
@@ -38,7 +33,7 @@ class ViewCart extends React.Component {
                 <p>Price: ${item.price * item.cartQuantity / 100}</p>
                 <button
                   type="button"
-                  value={item.price}
+                  value={item.price * item.cartQuantity}
                   onClick={this.removeClickItem}
                 >
                   Remove from Cart

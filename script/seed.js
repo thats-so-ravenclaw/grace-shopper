@@ -12,7 +12,8 @@ for (let i = 1; i < 101; i++) {
     email: faker.internet.email(),
     password: faker.internet.password(),
     salt: faker.lorem.word(),
-    googleId: faker.name.firstName()
+    googleId: faker.name.firstName(),
+    isAdmid: false
   };
   usersArr.push(newUser);
 }
