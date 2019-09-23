@@ -1,11 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+// class OrderCompleted extends React.component {
+
+//   render () {
+//     return (
+//       <div>
+//         <h3>Thank you for your purchase!</h3>
+//     </div>
+//     )
+//   }
+// }
 
 const OrderCompleted = () => {
   return (
     <div>
-      <h3>Thank your for your purchase!</h3>
+      <h3>Thank you for your purchase!</h3>
     </div>
   );
 };
 
-module.exports = OrderCompleted;
+export default OrderCompleted;
