@@ -17,10 +17,10 @@ const Wig = db.define('wig', {
   },
   price: {
     type: Sequelize.INTEGER,
-    allowNull: false,
-    get() {
-      return this.getDataValue('price') / 100;
-    }
+    allowNull: false
+    // get() {
+    //   return this.getDataValue('price') / 100;
+    // }
   },
   quantity: {
     type: Sequelize.INTEGER,

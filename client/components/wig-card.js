@@ -12,7 +12,8 @@ class WigCard extends React.Component {
 
   addClick() {
     this.props.addItem(this.props.wig);
-    this.props.addPrice(this.props.wig.price, this.props.wig.cartQuantity);
+    // this.props.addPrice(this.props.wig.id);
+    this.props.addPrice(this.props.wig.price);
   }
 
   render() {
@@ -25,7 +26,7 @@ class WigCard extends React.Component {
         </div>
         <div className="wig-text-div">
           <h3>{wig.name}</h3>
-          <p>Price: ${wig.price}</p>
+          <p>Price: ${wig.price / 100}</p>
         </div>
         {wig.quantity === 0 ? <p>This item is sold out.</p> : ''}
         <div className="wig-btn-div">
@@ -49,7 +50,7 @@ class WigCard extends React.Component {
 const mapDispatchToProps = dispatch => {
   return {
     addItem: item => dispatch(addToCartThunk(item)),
-    addPrice: (cost, quantity) => dispatch(addTotalThunk(cost, quantity))
+    addPrice: wigPrice => dispatch(addTotalThunk(wigPrice))
   };
 };
 

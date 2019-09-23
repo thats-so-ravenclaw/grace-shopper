@@ -11,6 +11,22 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:wigId', async (req, res, next) => {
+  try {
+    const SingleWig = await Wig.findAll({
+      where: {
+        id: req.params.wigId
+      }
+    });
+
+    if (SingleWig) {
+      res.json(SingleWig);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.put('/quantity', async (req, res, next) => {
   try {
     // cache {wigId: cartQuantity}
