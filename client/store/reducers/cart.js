@@ -25,8 +25,9 @@ const cartErrorAction = error => ({
   error
 });
 
-export const placeNewOrder = () => ({
-  type: PLACE_NEW_ORDER
+export const placeNewOrder = idArray => ({
+  type: PLACE_NEW_ORDER,
+  idArray
 });
 
 export const placeNewOrderError = error => ({
@@ -60,7 +61,8 @@ export const placeOrderThunk = (order, cart, total) => {
     try {
       const idArray = cart.map(item => item.id);
       const newCart = await Axios.put('/api/wigs/quantity', cart);
-      // const newOrder = await Axios.post('/api/orders', order); // for updating line item associations down the line
+      const newOrder = await Axios.post('/api/orders', order);
+      // for updating line item associations down the line
       // if (!newCart) //add some error message if newCart doesn't exist
       dispatch(placeNewOrder());
     } catch (error) {
