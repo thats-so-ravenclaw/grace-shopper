@@ -126,3 +126,24 @@ form div {
   border-radius: 5px;
   padding: 7px;
 }
+
+/* Checkout form beautification */
+/* .order-summary {
+  width: 70%;
+}
+
+.order-summary div {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.summary-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.summary-div p {
+  padding: 10px;
+  margin: 0;
+} */

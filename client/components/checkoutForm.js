@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { placeOrderThunk, updateWigsThunk } from '../store/reducers/cart';
+import { Link } from 'react-router-dom';
 //need to import thunks to post an order
 
 class CheckoutForm extends React.Component {
@@ -44,7 +45,6 @@ class CheckoutForm extends React.Component {
 
   render() {
     const { cart } = this.props;
-    console.log(this.props.user);
 
     const orderSummary = cart ? (
       cart.map(order => {
@@ -75,16 +75,16 @@ class CheckoutForm extends React.Component {
         </div>
         <div className="form-box">
           <div>
-            <label htmlFor="name">Name:</label>
-            <input
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
             <h4>Shipping Address:</h4>
+            <div>
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={this.state.name}
+                onChange={this.handleChange}
+              />
+            </div>
             <div>
               <label htmlFor="shippingAddressStreet">Street:</label>
               <input
@@ -161,9 +161,12 @@ class CheckoutForm extends React.Component {
               />
             </div>
           </div>
-          <Link to="/order-completed">
-            <button type="submit">Place Order</button>
-          </Link>
+          <div>
+            <p>Total: ${(this.props.total / 100).toFixed(2)}</p>
+            <Link to="/order-completed">
+              <button type="submit">Place Order</button>
+            </Link>
+          </div>
         </div>
       </form>
     );
