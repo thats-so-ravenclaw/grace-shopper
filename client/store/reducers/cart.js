@@ -5,7 +5,8 @@ import {
   REMOVE_FROM_CART,
   REMOVE_FROM_CART_ERROR,
   PLACE_NEW_ORDER,
-  PLACE_ORDER_ERROR
+  PLACE_ORDER_ERROR,
+  UPDATE_WIGS_ERROR
 } from './index';
 
 // Using Axios to update the quantity in the database on checkout
@@ -46,6 +47,11 @@ export const removeFromCartError = error => ({
   error
 });
 
+export const updateWigsError = error => ({
+  type: UPDATE_WIGS_ERROR,
+  error
+});
+
 //thunk creators currently do not need to be async functions since we are not accessing the database
 export const addToCartThunk = item => {
   return dispatch => {
@@ -76,11 +82,21 @@ export const removeFromCartThunk = wigId => {
     }
   };
 };
-export const placeOrderThunk = (order, cart) => {
+
+export const updateWigsThunk = cart => {
   return async dispatch => {
     try {
       await Axios.put('/api/wigs/quantity', cart);
-      const newOrder = await Axios.post('/api/orders', order);
+    } catch (error) {
+      dispatch(updateWigsError(error));
+    }
+  };
+};
+
+export const placeOrderThunk = order => {
+  return async dispatch => {
+    try {
+      const { data } = await Axios.post('/api/orders', order);
       // for updating line item associations down the line
       // if (!newCart) //add some error message if newCart doesn't exist
       dispatch(placeNewOrder());
