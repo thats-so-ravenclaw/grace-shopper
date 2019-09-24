@@ -11,11 +11,29 @@ class ViewCart extends React.Component {
   }
 
   removeClickItem(event) {
-    // console.log(event.target.value);
-    let wigPrice = event.target.value;
-    // console.log('WIG PRICE ', wigPrice);
-    this.props.decreaseTotal(wigPrice);
-    this.props.removeItem(this.props.cart[0]);
+    //item.id is passed in as a string
+    let wigIdString = event.target.value;
+
+    //converted item.id from string to number
+    let wigId = Number(wigIdString);
+
+    //filtering through cart on state to return wig that was clicked
+    let filteredCart = this.props.cart.filter(wig => wigId === wig.id);
+    console.log('FILTERED ', filteredCart);
+
+    //filtered cart will always only have one wig in it's array
+    let cartQuant = filteredCart[0].cartQuantity;
+    let eachWigPrice = filteredCart[0].price;
+
+    //multiply cart quanity with price of wig to send to thunk creator
+    let subtotalWigPrice = eachWigPrice * cartQuant;
+
+    console.log('CART QUANT ', cartQuant);
+    console.log('EACH WIG PRICE ', eachWigPrice);
+    console.log('WIG PRICE * QUANT ', subtotalWigPrice);
+
+    this.props.decreaseTotal(subtotalWigPrice);
+    this.props.removeItem(wigId);
   }
 
   render() {
@@ -33,7 +51,8 @@ class ViewCart extends React.Component {
                 <p>Price: ${item.price * item.cartQuantity / 100}</p>
                 <button
                   type="button"
-                  value={item.price * item.cartQuantity}
+                  value={item.id}
+                  // value={item.price * item.cartQuantity}
                   onClick={this.removeClickItem}
                 >
                   Remove from Cart
@@ -74,8 +93,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  removeItem: wig => dispatch(removeFromCartThunk(wig)),
-  decreaseTotal: wigPrice => dispatch(updateTotalThunk(wigPrice))
+  removeItem: wigId => dispatch(removeFromCartThunk(wigId)),
+  decreaseTotal: subtotalWigPrice =>
+    dispatch(updateTotalThunk(subtotalWigPrice))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewCart);
