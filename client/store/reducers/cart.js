@@ -5,7 +5,8 @@ import {
   REMOVE_FROM_CART,
   REMOVE_FROM_CART_ERROR,
   PLACE_NEW_ORDER,
-  PLACE_ORDER_ERROR
+  PLACE_ORDER_ERROR,
+  UPDATE_WIGS_ERROR
 } from './index';
 
 // Using Axios to update the quantity in the database on checkout
@@ -22,9 +23,9 @@ export const getCart = () => ({
   type: GET_CART
 });
 
-export const removeFromCart = wig => ({
+export const removeFromCart = wigId => ({
   type: REMOVE_FROM_CART,
-  wig
+  wigId
 });
 
 const cartErrorAction = error => ({
@@ -32,9 +33,8 @@ const cartErrorAction = error => ({
   error
 });
 
-export const placeNewOrder = wigAndQuantity => ({
-  type: PLACE_NEW_ORDER,
-  wigAndQuantity
+export const placeNewOrder = () => ({
+  type: PLACE_NEW_ORDER
 });
 
 export const placeNewOrderError = error => ({
@@ -44,6 +44,11 @@ export const placeNewOrderError = error => ({
 
 export const removeFromCartError = error => ({
   type: REMOVE_FROM_CART_ERROR,
+  error
+});
+
+export const updateWigsError = error => ({
+  type: UPDATE_WIGS_ERROR,
   error
 });
 
@@ -68,27 +73,33 @@ export const getCartThunk = () => {
   };
 };
 
-export const removeFromCartThunk = wig => {
+export const removeFromCartThunk = wigId => {
   return dispatch => {
     try {
-      dispatch(removeFromCart(wig));
+      dispatch(removeFromCart(wigId));
     } catch (error) {
       dispatch(removeFromCartError(error));
     }
   };
 };
-export const placeOrderThunk = (order, cart) => {
+
+export const updateWigsThunk = cart => {
   return async dispatch => {
     try {
-      let wigAndQuantity = {};
-      cart.forEach(item => {
-        wigAndQuantity[item.id] = item.cartQuantity;
-      });
-      const newCart = await Axios.put('/api/wigs/quantity', cart);
-      const newOrder = await Axios.post('/api/orders', order);
+      await Axios.put('/api/wigs/quantity', cart);
+    } catch (error) {
+      dispatch(updateWigsError(error));
+    }
+  };
+};
+
+export const placeOrderThunk = order => {
+  return async dispatch => {
+    try {
+      const { data } = await Axios.post('/api/orders', order);
       // for updating line item associations down the line
       // if (!newCart) //add some error message if newCart doesn't exist
-      dispatch(placeNewOrder(wigAndQuantity));
+      dispatch(placeNewOrder());
     } catch (error) {
       dispatch(placeNewOrderError(error));
     }
@@ -107,8 +118,7 @@ export default function cart(state = [], action) {
           // if there's already that wig in the cart
           if (item.id === action.item.id) {
             // then set isAlreadyInCart to true
-            // increase the quantity of that item in the cart
-            // increase price of that item in the cart
+            // and increase the quantity of that item in the cart
             isAlreadyInCart = true;
             item.cartQuantity += 1;
           }
@@ -137,7 +147,7 @@ export default function cart(state = [], action) {
       return state;
     case REMOVE_FROM_CART:
       let existingCart = [...state];
-      return existingCart.filter(wig => wig.id !== action.wig.id);
+      return existingCart.filter(wig => action.wigId != wig.id);
     case PLACE_NEW_ORDER:
       return [];
     default:

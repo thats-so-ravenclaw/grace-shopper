@@ -1,0 +1,31 @@
+nav a {
+  display: inline-block;
+  margin: 1em;
+}
+
+a {
+  text-decoration: none;
+  color: #4cb5ae;
+}
+
+h1 {
+  font-family: 'Lobster', cursive;
+  color: #e56399;
+}
+
+h3 {
+  color: #320e3b;
+}
+
+button:hover {
+  background-color: #822e81;
+}
+
+p {
+  color: #320e3b;
+}
+
+#shop-name {
+  font-weight: bolder;
+  font-size: 3em;
+}

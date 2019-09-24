@@ -1,19 +1,17 @@
-function isAuthenticated(req, res, next) {
-  // // console.log('REQUEST', req);
-  // console.log('RAW HEADERS', req.rawHeaders)
-  // console.log('CONTAINS', req.rawHeaders.includes('Referer'))
-  if (req.rawHeaders.includes('Referer')) {
+function isAdmin(req, res, next) {
+  if (req.user && req.user.isAdmin) {
     return next();
-  } else if (req.user) {
-    const isAdmin = req.user.isAdmin;
-    if (!req.rawHeaders.includes('Referer') && isAdmin) {
-      return next();
-    } else {
-      res.redirect('/login');
-    }
   } else {
     res.redirect('/login');
   }
 }
 
-module.exports = isAuthenticated;
+function isUser(req, res, next) {
+  if (req.params.id === req.user.id || req.user.isAdmin) {
+    return next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
+module.exports = { isAdmin, isUser };

@@ -2,17 +2,8 @@ body {
   font-family: sans-serif;
 }
 
-a {
-  text-decoration: none;
-}
-
 label {
   display: block;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
 }
 
 form div {
@@ -51,7 +42,7 @@ form div {
 
 .wig-btn-div button {
   font-size: 14px;
-  background-color: lightblue;
+  background-color: #4cb5ae;
   border: none;
   color: white;
   border-radius: 5px;
@@ -61,3 +52,102 @@ form div {
 .wig-btn-div button:disabled {
   background-color: grey;
 }
+
+/* body of the ViewCart page */
+.cart-container {
+  display: flex;
+  /* justify-content: space-between; */
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+}
+
+.item-img-div img {
+  display: flex;
+  max-width: 100%;
+  object-fit: contain;
+  margin: 20px 20px;
+  width: 200px;
+}
+
+.cart-div {
+  display: flex;
+  justify-content: flex-start;
+  margin: 5px;
+}
+
+.item-text-div {
+  display: flex;
+  flex-direction: column;
+  margin: 1px;
+  justify-content: flex-start;
+}
+
+.item-name-padding {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+  margin-bottom: 5px;
+  justify-content: flex-start;
+}
+
+.item-text-padding {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  justify-content: flex-start;
+}
+
+.item-btn-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.item-btn-div button {
+  font-size: 14px;
+  background-color: #4cb5ae;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding: 7px;
+}
+
+.checkout-btn-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.checkout-btn {
+  font-size: 14px;
+  background-color: #4cb5ae;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding: 7px;
+}
+
+/* Checkout form beautification */
+/* .order-summary {
+  width: 70%;
+}
+
+.order-summary div {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.summary-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.summary-div p {
+  padding: 10px;
+  margin: 0;
+} */
+
+/* .form-box {
+
+} */
