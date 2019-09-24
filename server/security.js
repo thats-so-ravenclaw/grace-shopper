@@ -1,7 +1,4 @@
 function isAuthenticated(req, res, next) {
-  // // console.log('REQUEST', req);
-  // console.log('RAW HEADERS', req.rawHeaders)
-  // console.log('CONTAINS', req.rawHeaders.includes('Referer'))
   if (req.rawHeaders.includes('Referer')) {
     return next();
   } else if (req.user) {
@@ -16,4 +13,20 @@ function isAuthenticated(req, res, next) {
   }
 }
 
-module.exports = isAuthenticated;
+function isAdmin(req, res, next) {
+  if (req.user && req.user.isAdmin) {
+    return next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
+function isUser(req, res, next) {
+  if (req.params.id === req.user.id || req.user.isAdmin) {
+    return next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
+module.exports = { isAuthenticated, isAdmin, isUser };
