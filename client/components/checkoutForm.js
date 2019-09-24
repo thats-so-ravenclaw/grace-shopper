@@ -161,7 +161,9 @@ class CheckoutForm extends React.Component {
               />
             </div>
           </div>
-          <button type="submit">Place Order</button>
+          <Link to="/order-completed">
+            <button type="submit">Place Order</button>
+          </Link>
         </div>
       </form>
     );

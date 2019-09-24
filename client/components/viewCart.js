@@ -28,10 +28,6 @@ class ViewCart extends React.Component {
     //multiply cart quanity with price of wig to send to thunk creator
     let subtotalWigPrice = eachWigPrice * cartQuant;
 
-    // console.log('CART QUANT ', cartQuant);
-    // console.log('EACH WIG PRICE ', eachWigPrice);
-    // console.log('WIG PRICE * QUANT ', subtotalWigPrice);
-
     this.props.decreaseTotal(subtotalWigPrice);
     this.props.removeItem(wigId);
   }
@@ -46,19 +42,24 @@ class ViewCart extends React.Component {
                 <img src={item.image} />
               </div>
               <div className="item-text-div">
-                <h3>{item.name}</h3>
-                <p>Quantity: {item.cartQuantity}</p>
-                <p>
+                <h3 className="item-name-padding">{item.name}</h3>
+                <p className="item-text-padding">
+                  Quantity: {item.cartQuantity}
+                </p>
+                <p className="item-text-padding">
                   Price: ${(item.price * item.cartQuantity / 100).toFixed(2)}
                 </p>
-                <button
-                  type="button"
-                  value={item.id}
-                  // value={item.price * item.cartQuantity}
-                  onClick={this.removeClickItem}
-                >
-                  Remove from Cart
-                </button>
+                <div className="item-btn-div">
+                  <button
+                    type="button"
+                    value={item.id}
+                    onClick={
+                      this.removeClickItem // value={item.price * item.cartQuantity}
+                    }
+                  >
+                    Remove from Cart
+                  </button>
+                </div>
               </div>
             </div>
           );
@@ -69,20 +70,24 @@ class ViewCart extends React.Component {
 
     return (
       <div className="cart-container">
-        <div className="cart-items">
-          {items}
-          <div className="cart-div">
-            {this.props.cart.length > 0 ? (
-              <h3>Total Price: ${(itemSum / 100).toFixed(2)}</h3>
-            ) : (
-              <p>There are no items in your cart!</p>
-            )}
-          </div>
-          <div className="checkout-button-div">
+        {items}
+        <div className="item-text-div">
+          {this.props.cart.length > 0 ? (
+            <h3>Total Price: ${(itemSum / 100).toFixed(2)}</h3>
+          ) : (
+            <p>There are no items in your cart!</p>
+          )}
+        </div>
+        <div className="checkout-button-div">
+          {this.props.cart.length > 0 ? (
             <Link to="/checkoutForm">
-              <button type="button">Checkout</button>
+              <button type="button" className="checkout-btn">
+                Checkout
+              </button>
             </Link>
-          </div>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     );
