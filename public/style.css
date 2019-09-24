@@ -2,17 +2,8 @@ body {
   font-family: sans-serif;
 }
 
-a {
-  text-decoration: none;
-}
-
 label {
   display: block;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
 }
 
 form div {
@@ -51,7 +42,7 @@ form div {
 
 .wig-btn-div button {
   font-size: 14px;
-  background-color: lightblue;
+  background-color: #4cb5ae;
   border: none;
   color: white;
   border-radius: 5px;
@@ -115,7 +106,7 @@ form div {
 
 .item-btn-div button {
   font-size: 14px;
-  background-color: lightblue;
+  background-color: #4cb5ae;
   border: none;
   color: white;
   border-radius: 5px;
@@ -129,7 +120,7 @@ form div {
 
 .checkout-btn {
   font-size: 14px;
-  background-color: lightblue;
+  background-color: #4cb5ae;
   border: none;
   color: white;
   border-radius: 5px;
