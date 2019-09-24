@@ -1,6 +1,6 @@
 const router = require('express').Router();
 module.exports = router;
-const isAuthenticated = require('../security');
+const { isAuthenticated } = require('../security');
 
 router.use(isAuthenticated);
 
