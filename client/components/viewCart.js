@@ -48,7 +48,9 @@ class ViewCart extends React.Component {
               <div className="item-text-div">
                 <h3>{item.name}</h3>
                 <p>Quantity: {item.cartQuantity}</p>
-                <p>Price: ${item.price * item.cartQuantity / 100}</p>
+                <p>
+                  Price: ${(item.price * item.cartQuantity / 100).toFixed(2)}
+                </p>
                 <button
                   type="button"
                   value={item.id}
@@ -71,7 +73,7 @@ class ViewCart extends React.Component {
           {items}
           <div className="cart-div">
             {this.props.cart.length > 0 ? (
-              <h3>Total Price: ${itemSum / 100}</h3>
+              <h3>Total Price: ${(itemSum / 100).toFixed(2)}</h3>
             ) : (
               <p>There are no items in your cart!</p>
             )}

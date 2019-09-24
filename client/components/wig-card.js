@@ -26,7 +26,7 @@ class WigCard extends React.Component {
         </div>
         <div className="wig-text-div">
           <h3>{wig.name}</h3>
-          <p>Price: ${wig.price / 100}</p>
+          <p>Price: ${(wig.price / 100).toFixed(2)}</p>
         </div>
         {wig.quantity === 0 ? <p>This item is sold out.</p> : ''}
         <div className="wig-btn-div">

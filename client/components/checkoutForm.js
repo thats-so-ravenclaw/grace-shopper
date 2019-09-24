@@ -50,7 +50,7 @@ class CheckoutForm extends React.Component {
           <div className="summary-div" key={order.id}>
             <p>{order.name}</p>
             <p>Quantity: {order.cartQuantity}</p>
-            <p>Price: ${order.price * order.cartQuantity / 100}</p>
+            <p>Price: ${(order.price * order.cartQuantity / 100).toFixed(2)}</p>
           </div>
         );
       })
@@ -65,7 +65,7 @@ class CheckoutForm extends React.Component {
             <div>
               <h4>Order Summary</h4>
               {orderSummary}
-              <p>Order Total: ${this.props.total / 100}</p>
+              <p>Order Total: ${(this.props.total / 100).toFixed(2)}</p>
             </div>
           ) : (
             <div className="no-items">There are no items in your cart!</div>
