@@ -43,25 +43,24 @@ export const updateTotalThunk = price => {
 };
 
 //REDUCER
-export default function total(state = [], action) {
+export default function total(state = 0, action) {
   switch (action.type) {
     case GET_TOTAL: {
       let cost = action.wigPrice;
       let existingTotal = state;
 
       const updatedTotal =
-        existingTotal.length !== 0
-          ? existingTotal + cost
-          : (existingTotal = cost);
+        existingTotal !== 0 ? existingTotal + cost : (existingTotal = cost);
       return updatedTotal;
     }
     case REMOVE_FROM_TOTAL: {
       let cost = action.price;
       let existingTotal = state;
-      // console.log('COST ', cost);
+      console.log('COST ', cost);
+      console.log('EXISTING TOTAL ', existingTotal);
 
       const decreasedUpdatedTotal =
-        existingTotal.length !== 0 ? existingTotal - cost : '';
+        existingTotal !== 0 ? existingTotal - cost : '';
       return decreasedUpdatedTotal;
     }
     case PLACE_NEW_ORDER:

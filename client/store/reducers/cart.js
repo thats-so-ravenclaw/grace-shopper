@@ -22,9 +22,9 @@ export const getCart = () => ({
   type: GET_CART
 });
 
-export const removeFromCart = wig => ({
+export const removeFromCart = wigId => ({
   type: REMOVE_FROM_CART,
-  wig
+  wigId
 });
 
 const cartErrorAction = error => ({
@@ -68,10 +68,10 @@ export const getCartThunk = () => {
   };
 };
 
-export const removeFromCartThunk = wig => {
+export const removeFromCartThunk = wigId => {
   return dispatch => {
     try {
-      dispatch(removeFromCart(wig));
+      dispatch(removeFromCart(wigId));
     } catch (error) {
       dispatch(removeFromCartError(error));
     }
@@ -137,7 +137,9 @@ export default function cart(state = [], action) {
       return state;
     case REMOVE_FROM_CART:
       let existingCart = [...state];
-      return existingCart.filter(wig => wig.id !== action.wig.id);
+
+      return existingCart.filter(wig => action.wigId != wig.id);
+    // return state;
     case PLACE_NEW_ORDER:
       return [];
     default:
