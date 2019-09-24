@@ -121,3 +121,17 @@ form div {
   border-radius: 5px;
   padding: 7px;
 }
+
+.checkout-btn-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.checkout-btn {
+  font-size: 14px;
+  background-color: lightblue;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding: 7px;
+}

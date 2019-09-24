@@ -28,10 +28,6 @@ class ViewCart extends React.Component {
     //multiply cart quanity with price of wig to send to thunk creator
     let subtotalWigPrice = eachWigPrice * cartQuant;
 
-    // console.log('CART QUANT ', cartQuant);
-    // console.log('EACH WIG PRICE ', eachWigPrice);
-    // console.log('WIG PRICE * QUANT ', subtotalWigPrice);
-
     this.props.decreaseTotal(subtotalWigPrice);
     this.props.removeItem(wigId);
   }
@@ -46,7 +42,7 @@ class ViewCart extends React.Component {
                 <img src={item.image} />
               </div>
               <div className="item-text-div">
-                <h3 className="item-text-padding">{item.name}</h3>
+                <h3 className="item-name-padding">{item.name}</h3>
                 <p className="item-text-padding">
                   Quantity: {item.cartQuantity}
                 </p>
@@ -85,7 +81,9 @@ class ViewCart extends React.Component {
         <div className="checkout-button-div">
           {this.props.cart.length > 0 ? (
             <Link to="/checkoutForm">
-              <button type="button">Checkout</button>
+              <button type="button" className="checkout-btn">
+                Checkout
+              </button>
             </Link>
           ) : (
             ''
