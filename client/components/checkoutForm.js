@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { placeOrderThunk } from '../store/reducers/cart';
+import { OrderCompleted } from './order-completed';
+import { Link } from 'react-router-dom';
 //need to import thunks to post an order
 
 class CheckoutForm extends React.Component {
@@ -37,8 +39,8 @@ class CheckoutForm extends React.Component {
       zip: this.state.shippingAddressZipcode,
       user: this.props.user ? this.props.user.id : null
     };
-    this.props.placeOrderThunk(order, this.props.cart);
-    window.location.pathname = '/orderCompleted';
+    this.props.placeOrderThunk(this.state, this.props.cart);
+    // window.location.pathname = '/orderCompleted';
   }
 
   render() {
@@ -159,7 +161,9 @@ class CheckoutForm extends React.Component {
               />
             </div>
           </div>
-          <button type="submit">Place Order</button>
+          <Link to="/order-completed">
+            <button type="submit">Place Order</button>
+          </Link>
         </div>
       </form>
     );
