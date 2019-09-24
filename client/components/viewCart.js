@@ -28,9 +28,9 @@ class ViewCart extends React.Component {
     //multiply cart quanity with price of wig to send to thunk creator
     let subtotalWigPrice = eachWigPrice * cartQuant;
 
-    console.log('CART QUANT ', cartQuant);
-    console.log('EACH WIG PRICE ', eachWigPrice);
-    console.log('WIG PRICE * QUANT ', subtotalWigPrice);
+    // console.log('CART QUANT ', cartQuant);
+    // console.log('EACH WIG PRICE ', eachWigPrice);
+    // console.log('WIG PRICE * QUANT ', subtotalWigPrice);
 
     this.props.decreaseTotal(subtotalWigPrice);
     this.props.removeItem(wigId);

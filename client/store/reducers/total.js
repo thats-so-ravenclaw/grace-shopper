@@ -56,9 +56,6 @@ export default function total(state = 0, action) {
     case REMOVE_FROM_TOTAL: {
       let cost = action.price;
       let existingTotal = state;
-      console.log('COST ', cost);
-      console.log('EXISTING TOTAL ', existingTotal);
-
       const decreasedUpdatedTotal =
         existingTotal !== 0 ? existingTotal - cost : '';
       return decreasedUpdatedTotal;
