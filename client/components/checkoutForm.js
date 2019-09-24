@@ -161,12 +161,7 @@ class CheckoutForm extends React.Component {
               />
             </div>
           </div>
-          <div>
-            <p>Total: ${(this.props.total / 100).toFixed(2)}</p>
-            <Link to="/order-completed">
-              <button type="submit">Place Order</button>
-            </Link>
-          </div>
+          <button type="submit">Place Order</button>
         </div>
       </form>
     );
