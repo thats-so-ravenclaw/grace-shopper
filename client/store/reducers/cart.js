@@ -32,9 +32,8 @@ const cartErrorAction = error => ({
   error
 });
 
-export const placeNewOrder = wigAndQuantity => ({
-  type: PLACE_NEW_ORDER,
-  wigAndQuantity
+export const placeNewOrder = () => ({
+  type: PLACE_NEW_ORDER
 });
 
 export const placeNewOrderError = error => ({
@@ -80,15 +79,11 @@ export const removeFromCartThunk = wigId => {
 export const placeOrderThunk = (order, cart) => {
   return async dispatch => {
     try {
-      let wigAndQuantity = {};
-      cart.forEach(item => {
-        wigAndQuantity[item.id] = item.cartQuantity;
-      });
-      const newCart = await Axios.put('/api/wigs/quantity', cart);
+      await Axios.put('/api/wigs/quantity', cart);
       const newOrder = await Axios.post('/api/orders', order);
       // for updating line item associations down the line
       // if (!newCart) //add some error message if newCart doesn't exist
-      dispatch(placeNewOrder(wigAndQuantity));
+      dispatch(placeNewOrder());
     } catch (error) {
       dispatch(placeNewOrderError(error));
     }
@@ -107,8 +102,7 @@ export default function cart(state = [], action) {
           // if there's already that wig in the cart
           if (item.id === action.item.id) {
             // then set isAlreadyInCart to true
-            // increase the quantity of that item in the cart
-            // increase price of that item in the cart
+            // and increase the quantity of that item in the cart
             isAlreadyInCart = true;
             item.cartQuantity += 1;
           }
@@ -137,9 +131,7 @@ export default function cart(state = [], action) {
       return state;
     case REMOVE_FROM_CART:
       let existingCart = [...state];
-
       return existingCart.filter(wig => action.wigId != wig.id);
-    // return state;
     case PLACE_NEW_ORDER:
       return [];
     default:
