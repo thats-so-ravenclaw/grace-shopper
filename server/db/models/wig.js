@@ -18,9 +18,6 @@ const Wig = db.define('wig', {
   price: {
     type: Sequelize.INTEGER,
     allowNull: false
-    // get() {
-    //   return this.getDataValue('price') / 100;
-    // }
   },
   quantity: {
     type: Sequelize.INTEGER,
@@ -37,21 +34,26 @@ const Wig = db.define('wig', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
+      isIn: [['short', 'medium', 'long']]
     }
   },
   material: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
+      isIn: [['human', 'synthetic']]
     }
   },
   color: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
+      isIn: [
+        ['black', 'brown', 'blonde', 'rainbow', 'red', 'altervative', 'gray']
+      ]
     }
   }
 });
