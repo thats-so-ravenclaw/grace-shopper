@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { placeOrderThunk } from '../store/reducers/cart';
+import { placeOrderThunk, updateWigsThunk } from '../store/reducers/cart';
 //need to import thunks to post an order
 
 class CheckoutForm extends React.Component {
@@ -37,12 +37,14 @@ class CheckoutForm extends React.Component {
       zip: this.state.shippingAddressZipcode,
       user: this.props.user ? this.props.user.id : null
     };
-    this.props.placeOrderThunk(order, this.props.cart);
+    this.props.updateWigsThunk(this.props.cart);
+    this.props.placeOrderThunk(order);
     window.location.pathname = '/orderCompleted';
   }
 
   render() {
     const { cart } = this.props;
+    console.log(this.props.user);
 
     const orderSummary = cart ? (
       cart.map(order => {
@@ -174,12 +176,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    placeOrderThunk(order, cart) {
-      dispatch(placeOrderThunk(order, cart));
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  placeOrderThunk: order => dispatch(placeOrderThunk(order)),
+  updateWigsThunk: cart => dispatch(updateWigsThunk(cart))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutForm);

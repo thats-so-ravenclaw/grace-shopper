@@ -20,6 +20,7 @@ export const GET_TOTAL = 'GET_TOTAL';
 export const TOTAL_ERROR = 'TOTAL_ERROR';
 export const REMOVE_FROM_TOTAL = 'REMOVE_FROM_TOTAL';
 
+export const UPDATE_WIGS_ERROR = 'UPDATE_WIGS_ERROR';
 export const PLACE_NEW_ORDER = 'PLACE_NEW_ORDER';
 export const PLACE_ORDER_ERROR = 'PLACE_ORDER_ERROR';
 

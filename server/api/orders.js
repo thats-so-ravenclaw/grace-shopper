@@ -5,7 +5,7 @@ module.exports = router;
 router.post('/', async (req, res, next) => {
   try {
     //if the user is undefined or the user id equals the request user id then this ok, otherwise, redirect to login
-    if (req.user === undefined || req.body.user.id === req.user.id) {
+    if (req.user === undefined || req.body.user === req.user.id) {
       const oneOrder = await Order.create({
         status: 'submitted',
         total: req.body.total,
