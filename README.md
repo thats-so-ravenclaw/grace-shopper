@@ -10,4 +10,7 @@ Run:
 
 ### Deployed on Heroku
 
-[link]: https://grace-shopper-wigs.herokuapp.com/
+<a href="https://grace-shopper-wigs.herokuapp.com/"
+title="herokuapp"
+target="_blank"
+rel="noopener noreferrer">Grace Shopper on Heroku</a>
